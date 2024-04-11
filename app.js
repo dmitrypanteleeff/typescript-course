@@ -1,8 +1,4 @@
 "use strict";
 const skills = [1, 'Dev'];
-// const id = skills[0];
-// const skillName = skills[1];
-// skills.push('ansdas');
-// console.log(skills)
-const [id, skillName] = skills;
-const arr = [1, 'saas', true, true, false];
+const skillsArray = ['Dev', 'DevOps'];
+const skills2 = ['Dev', 'DevOps'];
