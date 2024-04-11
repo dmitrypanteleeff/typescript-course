@@ -1,11 +1,7 @@
-const a = 1;
+let revenue = 1000;
+let bonus = 500;
+let str: string = 'qwerty';
+let flag: boolean = true;
 
-interface IUser {
-    id: number;
-    name: string;
-}
-
-const user: IUser = {
-    id: 1,
-    name: 'Dmitry'
-}
+let result: number = revenue + bonus;
+console.log(result);
