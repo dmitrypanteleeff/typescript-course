@@ -1,26 +1,39 @@
-//function getFullName(userEntity: IUser): string {
-function getFullName(userEntity: { firstname: string, surname: string }): string {
-    return `${userEntity.firstname} ${userEntity.surname}`;
-}
 
-const getFullNameArrow = (firstname: string, surname: string): string => {
-    return `${firstname} ${surname}`;
-}
-
-interface IUser {
-    firstname: string,
-    surname: string
-}
-
-const user = {
-    firstname: 'Lana',
-    surname: 'Del Rey',
-    age: 29,
-    city: 'Los Angeles',
-    skills: {
-        singer: true,
-        danser: true
+interface IOffice {
+    officeId: number, 
+    isOpened: boolean, 
+    contacts: {
+        phone: string,
+        email: string,
+        address: {
+            city: string
+        }
     }
 }
 
-console.log(getFullName(user));
+let info: {
+    officeId: number, 
+    isOpened: boolean, 
+    contacts: {
+        phone: string,
+        email: string,
+        address: {
+            city: string
+        }
+    }
+} = {
+	"officeId": 45,
+	"isOpened": false,
+	"contacts": {
+		"phone": "+79100000000",
+		"email": "my@email.ru",
+		"address": {
+			"city": "Москва"
+		}
+	}
+}
+
+function getOfficeInfo(obj: IOffice):void {
+    console.log(obj.officeId);
+    return;
+}
