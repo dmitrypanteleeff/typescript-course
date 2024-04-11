@@ -1,39 +1,14 @@
+const skills: string[] = ['Dev', 'DevOps', 'Testing'];
 
-interface IOffice {
-    officeId: number, 
-    isOpened: boolean, 
-    contacts: {
-        phone: string,
-        email: string,
-        address: {
-            city: string
-        }
-    }
-}
+const skills2: Array<string> = ['Dev', 'DevOps', 'Testing'];
 
-let info: {
-    officeId: number, 
-    isOpened: boolean, 
-    contacts: {
-        phone: string,
-        email: string,
-        address: {
-            city: string
-        }
-    }
-} = {
-	"officeId": 45,
-	"isOpened": false,
-	"contacts": {
-		"phone": "+79100000000",
-		"email": "my@email.ru",
-		"address": {
-			"city": "Москва"
-		}
-	}
-}
+for (const skill of skills) {
+    console.log(skill.toLowerCase())
+} 
 
-function getOfficeInfo(obj: IOffice):void {
-    console.log(obj.officeId);
-    return;
-}
+const res: string = skills
+    .filter( (item: string) => item !== 'DevOps')
+    .map(s => s + '! ')
+    .reduce((acc: string, cur: string) => acc + cur, '');
+
+console.log(res)
