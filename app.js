@@ -1,7 +1,8 @@
 "use strict";
-let revenue = 1000;
-let bonus = 500;
-let str = 'qwerty';
-let flag = true;
-let result = revenue + bonus;
-console.log(result);
+function getFullName(firstname, surname) {
+    return `${firstname} ${surname}`;
+}
+const getFullNameArrow = (firstname, surname) => {
+    return `${firstname} ${surname}`;
+};
+console.log(getFullName('Кошка', 'Котова'));
