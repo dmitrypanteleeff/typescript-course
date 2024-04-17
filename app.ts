@@ -1,22 +1,44 @@
 
-const enum Status {
-    PUBLISHED = 'published',
-    DRAFT = 'draft',
-    DELETED = 'deleted'
+// Сужение типов
+function logId(id: string | number | boolean) {
+    console.log(id)
+    if (typeof id === 'string') {
+        console.log(id.toLowerCase());
+    } else if (typeof id === 'number') {
+        console.log(id);
+    } else {
+        console.log(id);
+    }
+}
+
+function logError(err: string | string[]) {
+    if (Array.isArray(err)) {
+        console.log(err);
+    } else {
+        console.log(err);
+    }
+}
+
+function logObject(obj: {a: number} | {b: number}) {
+    // проверка по ключу
+    if ('a' in obj) {
+        console.log(obj.a)
+    } else {
+        console.log(obj.b)
+    }
 } 
 
-
-async function getFaqs(req: {topicId: number, status?: Status}): Promise<Array<{
-    question: string,
-	answer: string,
-	tags: string[],
-	likes: number,
-	status: Status
-}>> {
-	const res = await fetch('/faqs', {
-		method: 'POST',
-		body: JSON.stringify(req)
-	});
-	const data = await res.json();
-	return data;
+function logMultippleIds(a: string | number, b: string | boolean) {
+    if (a === b) {
+        a.toLowerCase();
+    } else {
+        console.log(a)
+    }
 }
+
+// Тут тип будет равен 1
+const a = 1;
+
+logId(112312);
+logId('qweqweq');
+logId(true);
