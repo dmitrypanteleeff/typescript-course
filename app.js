@@ -1,43 +1,8 @@
-// Сужение типов
-function logId(id) {
-    console.log(id);
-    if (typeof id === 'string') {
-        console.log(id.toLowerCase());
-    }
-    else if (typeof id === 'number') {
-        console.log(id);
-    }
-    else {
-        console.log(id);
-    }
+function fetchWithAuth(url, method) {
+    return 1;
 }
-function logError(err) {
-    if (Array.isArray(err)) {
-        console.log(err);
-    }
-    else {
-        console.log(err);
-    }
-}
-function logObject(obj) {
-    // проверка по ключу
-    if ('a' in obj) {
-        console.log(obj.a);
-    }
-    else {
-        console.log(obj.b);
-    }
-}
-function logMultippleIds(a, b) {
-    if (a === b) {
-        a.toLowerCase();
-    }
-    else {
-        console.log(a);
-    }
-}
-// Тут тип будет равен 1
-var a = 1;
-logId(112312);
-logId('qweqweq');
-logId(true);
+fetchWithAuth('s', 'get');
+var a = 'qwerty';
+var method = 'post';
+// fetchWithAuth('s', method); - выдаст ошибку, так как тут идёт проверка на тип
+fetchWithAuth('s', method); // as - каст к типу
