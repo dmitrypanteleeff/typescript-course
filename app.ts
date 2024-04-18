@@ -1,16 +1,28 @@
-
-
-
-function fetchWithAuth(url: string, method: 'post' | 'get'): 1 | -1 {
-    return 1;
+type User = {
+    name: string,
+    age: number,
+    skills: string[]
 }
 
-fetchWithAuth('s', 'get');
+type Role = {
+    id: number,
+    name: string
+}
 
-let a: 'qwerty' = 'qwerty';
+//type UserWithRole = User & Role;
+type UserWithRole = {
+    user: User,
+    role: Role
+};
 
-let method = 'post';
-
-// fetchWithAuth('s', method); - выдаст ошибку, так как тут идёт проверка на тип
-
-fetchWithAuth('s', method as 'post'); // as - каст к типу
+const user: UserWithRole = {
+    user: {
+        name: 'Hayley',
+        age: 33,
+        skills: ['write', 'read'],
+    },
+    role: {
+        id: 1,
+        name: 'user'
+    }
+}

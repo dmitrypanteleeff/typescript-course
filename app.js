@@ -1,8 +1,12 @@
-function fetchWithAuth(url, method) {
-    return 1;
-}
-fetchWithAuth('s', 'get');
-var a = 'qwerty';
-var method = 'post';
-// fetchWithAuth('s', method); - выдаст ошибку, так как тут идёт проверка на тип
-fetchWithAuth('s', method); // as - каст к типу
+"use strict";
+const user = {
+    user: {
+        name: 'Hayley',
+        age: 33,
+        skills: ['write', 'read'],
+    },
+    role: {
+        id: 1,
+        name: 'user'
+    }
+};
