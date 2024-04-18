@@ -1,36 +1,37 @@
-
-// Interface - можно дополнять
 interface IUser {
-    name: string
-}
-
-interface IUser {
-    age: number
+    login: string,
+    password?: string
 }
 
 const user: IUser = {
-    name: 'Tom',
-    age: 33
+    login: 'aaa@aaa.ru',
+   // password: '1231'
 }
 
-// Interface нельзя заэкстендить от примитивных типов
-type ID = string | number;
-
-interface IDI {
-    IDI: string | number
+function multiply(first: number, second?: number): number {
+    if (!second) {
+        return first * first;
+    }
+    return first * second;
 }
 
-// type - можно использовать как Alias (псевдонимы)
-type userName = string;
-type surname = string;
 
-const user2: userName = 'qweqwe';
-
-// для примитивных типов лучше использовать type, для сложных объектов interface
-
-
+interface IUserPro {
+    login: string;
+    password?: {
+        type: 'primary' | 'secondary'
+    }
+}
 
 
-// type - можно
-// Interface - можно дополнять
-// Interface - можно дополнять
+function testPass(user: IUserPro) {
+    const t = user.password?.type;
+   // const t = user.password!.type;  - запись "!." означает, что здесь полюбому есть тип
+}
+
+function test(param?: string) {
+    const t = param ?? multiply(5);
+
+    // param === null || param === undefined то выполняем функцию multiply(5)
+}
+
