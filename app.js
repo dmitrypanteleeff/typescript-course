@@ -1,12 +1,16 @@
 "use strict";
 const user = {
-    user: {
-        name: 'Hayley',
-        age: 33,
-        skills: ['write', 'read'],
-    },
-    role: {
-        id: 1,
-        name: 'user'
+    name: 'Hayley',
+    age: 33,
+    skills: ['write', 'read'],
+    roleId: 12,
+    createdAt: new Date,
+    log(id) {
+        return '';
     }
 };
+// Пример словаря
+// {
+//     1: user,
+//     2: user
+// }

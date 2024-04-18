@@ -1,28 +1,52 @@
+interface IUser {
+    name: string,
+    age: number,
+    skills: string[]
+
+    log: (id: number) => string;
+}
+
+interface IRole {
+    roleId: number
+}
+
 type User = {
     name: string,
     age: number,
     skills: string[]
+
+    log: (id: number) => string;
 }
 
-type Role = {
-    id: number,
-    name: string
+
+
+interface IUserWithRole extends IUser, IRole {
+    createdAt: Date
 }
 
-//type UserWithRole = User & Role;
-type UserWithRole = {
-    user: User,
-    role: Role
-};
+const user: IUserWithRole = {
+    name: 'Hayley',
+    age: 33,
+    skills: ['write', 'read'],
+    roleId: 12,
+    createdAt: new Date,
 
-const user: UserWithRole = {
-    user: {
-        name: 'Hayley',
-        age: 33,
-        skills: ['write', 'read'],
-    },
-    role: {
-        id: 1,
-        name: 'user'
+    log(id) {
+        return '';
     }
 }
+
+// Можно описывать словари
+interface UserDic {
+    [index: string]: User
+}
+
+type UserDic2 = {
+    [index: number]: User
+}
+
+// Пример словаря
+// {
+//     1: user,
+//     2: user
+// }
