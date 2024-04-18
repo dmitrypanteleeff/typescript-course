@@ -1,16 +1,10 @@
 "use strict";
 const user = {
-    name: 'Hayley',
-    age: 33,
-    skills: ['write', 'read'],
-    roleId: 12,
-    createdAt: new Date,
-    log(id) {
-        return '';
-    }
+    name: 'Tom',
+    age: 33
 };
-// Пример словаря
-// {
-//     1: user,
-//     2: user
-// }
+const user2 = 'qweqwe';
+// для примитивных типов лучше использовать type, для сложных объектов interface
+// type - можно
+// Interface - можно дополнять
+// Interface - можно дополнять

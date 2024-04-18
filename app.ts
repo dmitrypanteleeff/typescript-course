@@ -1,52 +1,36 @@
+
+// Interface - можно дополнять
 interface IUser {
-    name: string,
-    age: number,
-    skills: string[]
-
-    log: (id: number) => string;
+    name: string
 }
 
-interface IRole {
-    roleId: number
+interface IUser {
+    age: number
 }
 
-type User = {
-    name: string,
-    age: number,
-    skills: string[]
-
-    log: (id: number) => string;
+const user: IUser = {
+    name: 'Tom',
+    age: 33
 }
 
+// Interface нельзя заэкстендить от примитивных типов
+type ID = string | number;
 
-
-interface IUserWithRole extends IUser, IRole {
-    createdAt: Date
+interface IDI {
+    IDI: string | number
 }
 
-const user: IUserWithRole = {
-    name: 'Hayley',
-    age: 33,
-    skills: ['write', 'read'],
-    roleId: 12,
-    createdAt: new Date,
+// type - можно использовать как Alias (псевдонимы)
+type userName = string;
+type surname = string;
 
-    log(id) {
-        return '';
-    }
-}
+const user2: userName = 'qweqwe';
 
-// Можно описывать словари
-interface UserDic {
-    [index: string]: User
-}
+// для примитивных типов лучше использовать type, для сложных объектов interface
 
-type UserDic2 = {
-    [index: number]: User
-}
 
-// Пример словаря
-// {
-//     1: user,
-//     2: user
-// }
+
+
+// type - можно
+// Interface - можно дополнять
+// Interface - можно дополнять
