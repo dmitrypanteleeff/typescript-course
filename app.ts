@@ -1,30 +1,32 @@
-interface IPayment {
-    sum: number,
-    from: number,
-    to: number
+function logId(id: string | number): void {
+    console.log(id);
 }
 
-type Status = 'success' | 'failed';
+const a = logId(1);
 
-type Data = {
-    databaseId: number,
-    sum: number,
-    from: number,
-    to: number,
-    errorMessage: string,
-    errorCode: number
+function mmultiply(f: number, s?: number): number | void {
+    if (!s) {
+        return f * f;
+    }
+    //return f * s;
 }
 
+type voidFunction = () => void; 
 
-interface IResponse {
-    status: Status,
-    // data: {
-    //     databaseId?: number,
-    //     sum?: number,
-    //     from?: number,
-    //     to?: number,
-    //     errorMessage?: string,
-    //     errorCode?: number
-    // }
-    data: Partial<Data>
+const f1: voidFunction = () => {
+    
 }
+const f2: voidFunction = () => {
+    /* Можем возвращать что угодно, возврат будет игнорироваться */
+    return true;
+}
+const b = f2();
+
+const skills = ['Dev', 'DevOps'];
+
+const user = {
+    s: ['']
+}
+
+skills.forEach(skill => user.s.push(skill));
+
