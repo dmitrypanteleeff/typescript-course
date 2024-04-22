@@ -1,54 +1,48 @@
-/* Различия между unknown и any */
+/*Never - никогда такого не произойдёт. Никогда не вернётся
+Никогда не будет присвоено */
 
-let input: unknown;
+function generateError(message: string):never {
+    throw new Error(message);      
+}
 
-input = 3;
-input = ['sf', 'sdf'];
+function dumpError(): never {
+    while(true){}
+}
 
-//let res: string = input as string;
+function rec(): never {
+    return rec();
+}
 
-function run(i: unknown) {
-    if (typeof i == 'number') { 
-        i++; 
-    }
-    else { 
-        i;
+const a: void = undefined;
+
+type paymentAction = 'refund' | 'checkout' | 'reject';
+
+function processAction(action: paymentAction) {
+    switch(action){
+        case 'refund':
+            //...
+            break;
+        case 'checkout':
+            //...
+            break;
+        case 'reject':
+            //...
+            break;
+        default:
+            const _: never = action;
+            throw new Error('Нет такого action')
     }
 }
 
-run(input);
-async function getData() {
-    try {
-        fetch('');
-    } catch(error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
+
+function isString(x: string | number): boolean {
+    if (typeof x === 'string') { 
+        return true; 
     }
+    else if (typeof x === 'number') { 
+        return false; 
+    }
+    generateError('message');
 }
 
-async function getDataForce() {
-    try {
-        fetch('');
-    } catch(error) {
-        const e = error as Error;
-        console.log(e.message);
-    }
-}
-
-type U1 = unknown | null;
-
-type I1 = unknown & string;
-
-
-
-
-// let input2: unknown;
-// let res2: any = input2;
-
-/*
-unknown - это неизвестный тип. 
-Его нужно определить.
-any - это любой тип
-
-*/
+/* Never помогает во время компиляции кода обнаружить ошибки*/
