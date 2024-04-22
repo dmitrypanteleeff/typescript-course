@@ -1,37 +1,30 @@
-interface IUser {
-    login: string,
-    password?: string
+interface IPayment {
+    sum: number,
+    from: number,
+    to: number
 }
 
-const user: IUser = {
-    login: 'aaa@aaa.ru',
-   // password: '1231'
-}
+type Status = 'success' | 'failed';
 
-function multiply(first: number, second?: number): number {
-    if (!second) {
-        return first * first;
-    }
-    return first * second;
-}
-
-
-interface IUserPro {
-    login: string;
-    password?: {
-        type: 'primary' | 'secondary'
-    }
+type Data = {
+    databaseId: number,
+    sum: number,
+    from: number,
+    to: number,
+    errorMessage: string,
+    errorCode: number
 }
 
 
-function testPass(user: IUserPro) {
-    const t = user.password?.type;
-   // const t = user.password!.type;  - запись "!." означает, что здесь полюбому есть тип
+interface IResponse {
+    status: Status,
+    // data: {
+    //     databaseId?: number,
+    //     sum?: number,
+    //     from?: number,
+    //     to?: number,
+    //     errorMessage?: string,
+    //     errorCode?: number
+    // }
+    data: Partial<Data>
 }
-
-function test(param?: string) {
-    const t = param ?? multiply(5);
-
-    // param === null || param === undefined то выполняем функцию multiply(5)
-}
-
