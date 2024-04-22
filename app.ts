@@ -1,32 +1,54 @@
-function logId(id: string | number): void {
-    console.log(id);
-}
+/* Различия между unknown и any */
 
-const a = logId(1);
+let input: unknown;
 
-function mmultiply(f: number, s?: number): number | void {
-    if (!s) {
-        return f * f;
+input = 3;
+input = ['sf', 'sdf'];
+
+//let res: string = input as string;
+
+function run(i: unknown) {
+    if (typeof i == 'number') { 
+        i++; 
     }
-    //return f * s;
+    else { 
+        i;
+    }
 }
 
-type voidFunction = () => void; 
-
-const f1: voidFunction = () => {
-    
-}
-const f2: voidFunction = () => {
-    /* Можем возвращать что угодно, возврат будет игнорироваться */
-    return true;
-}
-const b = f2();
-
-const skills = ['Dev', 'DevOps'];
-
-const user = {
-    s: ['']
+run(input);
+async function getData() {
+    try {
+        fetch('');
+    } catch(error) {
+        if (error instanceof Error) {
+            console.log(error.message);
+        }
+    }
 }
 
-skills.forEach(skill => user.s.push(skill));
+async function getDataForce() {
+    try {
+        fetch('');
+    } catch(error) {
+        const e = error as Error;
+        console.log(e.message);
+    }
+}
 
+type U1 = unknown | null;
+
+type I1 = unknown & string;
+
+
+
+
+// let input2: unknown;
+// let res2: any = input2;
+
+/*
+unknown - это неизвестный тип. 
+Его нужно определить.
+any - это любой тип
+
+*/
