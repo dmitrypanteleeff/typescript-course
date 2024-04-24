@@ -1,24 +1,34 @@
 "use strict";
-let a = 5;
-let b = a.toString();
-let e = new String(a).valueOf();
-let f = new Boolean(a).valueOf();
-let c = 'weqwdqw';
-let d = +c;
-let dd = parseInt(c);
+/* Type Guard помогают оградить поток выполнения с точки зрения
+типов корректно, чтобы в каждом из версий проверок
+можно было корреткно определить тип */
 const user = {
     name: 'Вася',
     email: 'Vasya@yandex.ru',
     login: 'Vasia'
 };
-// const admin: IAdmin = {
-//     ...user,
-//     role: 1
-// }
-//const admin: IAdmin = user;
-function userToAdmin(user) {
-    return {
-        name: user.name,
-        role: 1
-    };
+function logId(id) {
+    if (isString(id)) {
+        console.log(id);
+    }
+    else {
+        console.log(id);
+    }
+}
+function isString(x) {
+    return typeof x === 'string';
+}
+function isAdmin(user) {
+    return 'role' in user;
+}
+function isAdminAlternative(user) {
+    return user.role !== undefined;
+}
+function setRoleZero(user) {
+    if (isAdmin(user)) {
+        user.role = 0;
+    }
+    else {
+        throw new Error('Пользователь не админ');
+    }
 }
