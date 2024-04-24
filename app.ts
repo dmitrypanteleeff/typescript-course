@@ -1,48 +1,25 @@
-/*Never - никогда такого не произойдёт. Никогда не вернётся
-Никогда не будет присвоено */
+const n: null = null;
+const n1: any = null;
+// const n2: number = null;
+// const n3: string = null;
+// const n4: boolean = null;
 
-function generateError(message: string):never {
-    throw new Error(message);      
+interface IUser {
+    name: string;
 }
 
-function dumpError(): never {
-    while(true){}
-}
-
-function rec(): never {
-    return rec();
-}
-
-const a: void = undefined;
-
-type paymentAction = 'refund' | 'checkout' | 'reject';
-
-function processAction(action: paymentAction) {
-    switch(action){
-        case 'refund':
-            //...
-            break;
-        case 'checkout':
-            //...
-            break;
-        case 'reject':
-            //...
-            break;
-        default:
-            const _: never = action;
-            throw new Error('Нет такого action')
+function getUser() {
+    if (Math.random() > 0.5) {
+        return null;
+    }
+    else {
+        return {
+            name: 'hayley'
+        } as IUser
     }
 }
 
-
-function isString(x: string | number): boolean {
-    if (typeof x === 'string') { 
-        return true; 
-    }
-    else if (typeof x === 'number') { 
-        return false; 
-    }
-    generateError('message');
+const user = getUser();
+if (user) {
+    const n55 = user.name;
 }
-
-/* Never помогает во время компиляции кода обнаружить ошибки*/

@@ -1,39 +1,17 @@
 "use strict";
-/*Never - никогда такого не произойдёт. Никогда не вернётся
-Никогда не будет присвоено */
-function generateError(message) {
-    throw new Error(message);
-}
-function dumpError() {
-    while (true) { }
-}
-function rec() {
-    return rec();
-}
-const a = undefined;
-function processAction(action) {
-    switch (action) {
-        case 'refund':
-            //...
-            break;
-        case 'checkout':
-            //...
-            break;
-        case 'reject':
-            //...
-            break;
-        default:
-            const _ = action;
-            throw new Error('Нет такого action');
+const n = null;
+const n1 = null;
+function getUser() {
+    if (Math.random() > 0.5) {
+        return null;
+    }
+    else {
+        return {
+            name: 'hayley'
+        };
     }
 }
-function isString(x) {
-    if (typeof x === 'string') {
-        return true;
-    }
-    else if (typeof x === 'number') {
-        return false;
-    }
-    generateError('message');
+const user = getUser();
+if (user) {
+    const n55 = user.name;
 }
-/* Never помогает во время компиляции кода обнаружить ошибки*/ 
