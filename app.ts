@@ -1,49 +1,45 @@
-/* Type Guard помогают оградить поток выполнения с точки зрения
-типов корректно, чтобы в каждом из версий проверок 
-можно было корреткно определить тип */
-
-interface IUser {
-    name: string,
-    email: string,
-    login: string
+interface IPayment {
+	sum: number;
+	from: number;
+	to: number;
 }
 
-const user: IUser = {
-    name: 'Вася',
-    email: 'Vasya@yandex.ru',
-    login: 'Vasia'
+enum PaymentStatus {
+	Success = 'success',
+	Failed = 'failed',
 }
 
-interface IAdmin {
-    name: string,
-    role: number
+interface IPaymentRequest extends IPayment { }
+
+interface IDataSuccess extends IPayment { 
+	databaseId: number;
 }
 
-function logId(id: string | number) {
-    if (isString(id)) {
-        console.log(id);
+interface IDataFailed {
+	errorMessage: string;
+	errorCode: number;
+}
+
+interface IResponseSuccess {
+	status: PaymentStatus.Success;
+	data: IDataSuccess;
+}
+
+interface IResponseFailed {
+	status: PaymentStatus.Failed;
+	data: IDataFailed;
+}
+
+
+function isStatusSuccess(res: IResponseSuccess | IResponseFailed): res is IResponseSuccess {
+    //return (res.data as IDataSuccess).databaseId !== undefined;
+    return 'databaseId' in res.data;
+}
+
+type f = (res: IResponseSuccess | IResponseFailed) => number;
+function reqTest(res: IResponseSuccess | IResponseFailed): number {
+    if (isStatusSuccess(res)) {
+        return res.data.databaseId;
     }
-    else {
-        console.log(id);
-    }
+    else { throw new Error(res.data.errorMessage); }
 }
-
-function isString(x: string | number): x is string {
-    return typeof x === 'string';
-}
-
-function isAdmin(user: IUser | IAdmin): user is IAdmin {
-    return 'role' in user;
-}
-function isAdminAlternative(user: IUser | IAdmin): user is IAdmin {
-    return (user as IAdmin).role !== undefined;
-}
-
-function setRoleZero(user: IUser | IAdmin) {
-    if(isAdmin(user)) {
-       user.role = 0; 
-    } else {
-        throw new Error('Пользователь не админ')
-    }
-}
-
