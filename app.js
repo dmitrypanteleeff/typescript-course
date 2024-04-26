@@ -1,18 +1,14 @@
 "use strict";
-var PaymentStatus;
-(function (PaymentStatus) {
-    PaymentStatus["Success"] = "success";
-    PaymentStatus["Failed"] = "failed";
-})(PaymentStatus || (PaymentStatus = {}));
-function isStatusSuccess(res) {
-    //return (res.data as IDataSuccess).databaseId !== undefined;
-    return 'databaseId' in res.data;
-}
-function reqTest(res) {
-    if (isStatusSuccess(res)) {
-        return res.data.databaseId;
-    }
-    else {
-        throw new Error(res.data.errorMessage);
+class User {
+    constructor(name) {
+        this.name = name;
     }
 }
+const user = new User('Vasya');
+console.log(user);
+user.name = 'Petya';
+console.log(user);
+class Admin {
+}
+const admin = new Admin();
+admin.role = 1;
