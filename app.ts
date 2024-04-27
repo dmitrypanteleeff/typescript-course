@@ -1,35 +1,33 @@
-enum PaymentStatus {
-	Holded,  // Деньги забронированы, но не списаны
-	Processed, // Деньги списаны
-	Reversed // Отмена холдирования
-}
+class User {
+	skills: string[] = [];
 
+	constructor() {
 
-class Payment {
-	id: number;
-	status: PaymentStatus = PaymentStatus.Holded;
-	createdAt: Date = new Date();
-	updatedAt: Date;
-
-	constructor(id: number) {
-		this.id = id;
 	}
 
-	getPaymentLifeTime(): number {
-		return new Date().getTime() - this.createdAt.getTime();
-	}
-
-	unholdPayment() {
-		if (this.status == PaymentStatus.Processed) {
-			throw new Error('Платёж не может быть возвращён')
+	addSkill(skill: string): void;
+	addSkill(skill: string[]): void;
+	addSkill(skillOrSkills: string | string[]): void {
+		if(typeof skillOrSkills === 'string') {
+			this.skills.push(skillOrSkills);
 		}
-		this.status = PaymentStatus.Reversed;
-		this.updatedAt = new Date();
+		else {
+			this.skills.concat(skillOrSkills);
+		}
+		
+		console.log(this.skills);
 	}
 }
 
-const payment = new Payment(1);
-payment.unholdPayment();
-console.log(payment)
-const time = payment.getPaymentLifeTime();
-console.log(time)
+const user = new User();
+user.addSkill('write');
+user.addSkill(['read', 'watch']);
+
+function run(distance: string): string;
+function run(distance: number): number;
+function run(distance: number | string): number | string {
+	if (typeof distance === 'number') { return 1; }
+	else { return 'empty'; }
+}
+
+run('1');

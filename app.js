@@ -1,29 +1,27 @@
 "use strict";
-var PaymentStatus;
-(function (PaymentStatus) {
-    PaymentStatus[PaymentStatus["Holded"] = 0] = "Holded";
-    PaymentStatus[PaymentStatus["Processed"] = 1] = "Processed";
-    PaymentStatus[PaymentStatus["Reversed"] = 2] = "Reversed"; // Отмена холдирования
-})(PaymentStatus || (PaymentStatus = {}));
-class Payment {
-    constructor(id) {
-        this.status = PaymentStatus.Holded;
-        this.createdAt = new Date();
-        this.id = id;
+class User {
+    constructor() {
+        this.skills = [];
     }
-    getPaymentLifeTime() {
-        return new Date().getTime() - this.createdAt.getTime();
-    }
-    unholdPayment() {
-        if (this.status == PaymentStatus.Processed) {
-            throw new Error('Платёж не может быть возвращён');
+    addSkill(skillOrSkills) {
+        if (typeof skillOrSkills === 'string') {
+            this.skills.push(skillOrSkills);
         }
-        this.status = PaymentStatus.Reversed;
-        this.updatedAt = new Date();
+        else {
+            this.skills.concat(skillOrSkills);
+        }
+        console.log(this.skills);
     }
 }
-const payment = new Payment(1);
-payment.unholdPayment();
-console.log(payment);
-const time = payment.getPaymentLifeTime();
-console.log(time);
+const user = new User();
+user.addSkill('write');
+user.addSkill(['read', 'watch']);
+function run(distance) {
+    if (typeof distance === 'number') {
+        return 1;
+    }
+    else {
+        return 'empty';
+    }
+}
+run('1');
