@@ -1,33 +1,35 @@
-/*
-	Конструтор - это функция, которая конструирует, возвращает наш объект
-	Она не может быть переопределена с точки зрения возвращаемого типа
-	Мы не можем исопользовать Дженерики и проставлять явный тип
-	Но мы можем делать оверроуд, тем самым объявляя различные вариации 
-	нашего конструктора для класса
-*/
+enum PaymentStatus {
+	Holded,  // Деньги забронированы, но не списаны
+	Processed, // Деньги списаны
+	Reversed // Отмена холдирования
+}
 
-class User {
-	name: string;
-	age: number;
 
-	constructor();
-	constructor(name: string);
-	constructor(age: number);
-	constructor(name: string, age: number);
-	constructor(ageOrName?: string | number, age?: number) {
-		if (typeof ageOrName === 'string') {
-			this.name = ageOrName;
+class Payment {
+	id: number;
+	status: PaymentStatus = PaymentStatus.Holded;
+	createdAt: Date = new Date();
+	updatedAt: Date;
+
+	constructor(id: number) {
+		this.id = id;
+	}
+
+	getPaymentLifeTime(): number {
+		return new Date().getTime() - this.createdAt.getTime();
+	}
+
+	unholdPayment() {
+		if (this.status == PaymentStatus.Processed) {
+			throw new Error('Платёж не может быть возвращён')
 		}
-		if (typeof ageOrName === 'number') {
-			this.age = ageOrName;
-		} 
-		if (typeof age === 'number') {
-			this.age = age;
-		} 
+		this.status = PaymentStatus.Reversed;
+		this.updatedAt = new Date();
 	}
 }
 
-const user = new User('Vasya');
-const user2 = new User();
-const user3 = new User(33)
-const user4 = new User('Ura',33)
+const payment = new Payment(1);
+payment.unholdPayment();
+console.log(payment)
+const time = payment.getPaymentLifeTime();
+console.log(time)
