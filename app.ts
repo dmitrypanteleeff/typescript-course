@@ -1,36 +1,35 @@
-/* 
-геттеры и сеттеры позволяют дополнить логику получения
-и присвоения свойств в объекте.
 
-То, что получает геттер, то и должен возвращать сеттер
-Например, если геттер получает число, то и сеттер должен возвращать число
+const args = ['col1', 'col2'];
 
-Если у нас еть только геттер, но нет сеттера, то у нас свойство становится readonly
-
-Сеттеры и геттеры не могут быть асинхронными
-*/
-
-class User {
-	_login: string;
-	password: string;
-
-	set login(l: string | number) {
-		this._login = 'user-'+ l;
-	}
-
-	get login() {
-		return 'no_login';
-	}
-
-	async setPassword(p: string) {
-
-	}
-	// set password(p: string) {
-
-	// }
+interface ILogger {
+	log: (arg: string) => void;
+	error(arg: string): void;
 }
 
-const user = new User();
-user.login = 'myLogin';
-console.log(user);
-console.log(user.login);
+class Loger implements ILogger {
+	log(arg: string): void {
+		console.log(...args)
+	};
+
+	error(arg: string): void {
+		throw new Error('Text error');
+	}
+}
+interface IDeletable {
+	delete(): void;
+}
+
+interface IPayable {
+	pay(paymentId: number): void;
+	price?: number;
+}
+
+class User implements IPayable, IDeletable {
+	pay(paymentId: number): void {
+		
+	}
+
+	delete(): void {
+		
+	}
+}

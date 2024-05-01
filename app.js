@@ -1,13 +1,17 @@
 "use strict";
-class User {
-    set login(l) {
-        this._login = 'user-' + l;
+const args = ['col1', 'col2'];
+class Loger {
+    log(arg) {
+        console.log(...args);
     }
-    get login() {
-        return 'no_login';
+    ;
+    error(arg) {
+        throw new Error('Text error');
     }
 }
-const user = new User();
-user.login = 'myLogin';
-console.log(user);
-console.log(user.login);
+class User {
+    pay(paymentId) {
+    }
+    delete() {
+    }
+}
