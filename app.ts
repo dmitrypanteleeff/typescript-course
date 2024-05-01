@@ -1,33 +1,36 @@
+/* 
+геттеры и сеттеры позволяют дополнить логику получения
+и присвоения свойств в объекте.
+
+То, что получает геттер, то и должен возвращать сеттер
+Например, если геттер получает число, то и сеттер должен возвращать число
+
+Если у нас еть только геттер, но нет сеттера, то у нас свойство становится readonly
+
+Сеттеры и геттеры не могут быть асинхронными
+*/
+
 class User {
-	skills: string[] = [];
+	_login: string;
+	password: string;
 
-	constructor() {
-
+	set login(l: string | number) {
+		this._login = 'user-'+ l;
 	}
 
-	addSkill(skill: string): void;
-	addSkill(skill: string[]): void;
-	addSkill(skillOrSkills: string | string[]): void {
-		if(typeof skillOrSkills === 'string') {
-			this.skills.push(skillOrSkills);
-		}
-		else {
-			this.skills.concat(skillOrSkills);
-		}
-		
-		console.log(this.skills);
+	get login() {
+		return 'no_login';
 	}
+
+	async setPassword(p: string) {
+
+	}
+	// set password(p: string) {
+
+	// }
 }
 
 const user = new User();
-user.addSkill('write');
-user.addSkill(['read', 'watch']);
-
-function run(distance: string): string;
-function run(distance: number): number;
-function run(distance: number | string): number | string {
-	if (typeof distance === 'number') { return 1; }
-	else { return 'empty'; }
-}
-
-run('1');
+user.login = 'myLogin';
+console.log(user);
+console.log(user.login);
