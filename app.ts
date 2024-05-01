@@ -1,35 +1,46 @@
 
-const args = ['col1', 'col2'];
+type PaymentStatus = 'new' | 'paid';
 
-interface ILogger {
-	log: (arg: string) => void;
-	error(arg: string): void;
-}
+class Payment {
+	id: number;
+	status: PaymentStatus = 'new';
 
-class Loger implements ILogger {
-	log(arg: string): void {
-		console.log(...args)
-	};
-
-	error(arg: string): void {
-		throw new Error('Text error');
-	}
-}
-interface IDeletable {
-	delete(): void;
-}
-
-interface IPayable {
-	pay(paymentId: number): void;
-	price?: number;
-}
-
-class User implements IPayable, IDeletable {
-	pay(paymentId: number): void {
-		
+	constructor(id: number) {
+		this.id = id;
 	}
 
-	delete(): void {
-		
+	pay() {
+		this.status = 'paid';
 	}
 }
+
+class PersistedPayment extends Payment {
+	databaseId: number;
+	paidAt: Date;
+
+	constructor() {
+		const id = Math.random();
+		super(id);
+	}
+
+	save() {
+		// Сохраняет в базу
+	}
+
+	override pay(date?: Date) { // override метод
+		//this.status = 'paid';
+		super.pay();
+		if (date) {
+			this.paidAt = date;
+		}
+	}
+	// pay(date?: Date) {
+	// 	//this.status = 'paid';
+	// 	super.pay();
+	// 	if (date) {
+	// 		this.paidAt = date;
+	// 	}
+	// }
+}
+
+new PersistedPayment().save()
