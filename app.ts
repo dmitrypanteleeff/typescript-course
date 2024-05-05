@@ -1,34 +1,50 @@
-
-interface IProduct {
-	id: number;
-	name: string;
-	cost: number;
+class Product {
+	constructor(
+		public id: number,
+		public name: string,
+		public cost: number
+	) { }
 }
 
-interface IDeliveryHome {
-	address: string;
-	date: Date;
+class Delivery {
+	constructor(
+		public date: Date
+	) { }
 }
 
-interface IDeliveryStore {
-	storeID: number;
-	date: Date;
+class HomeDelivery extends Delivery {
+	constructor(
+		public date: Date,
+		public address: string
+	) {
+		super(date);
+	}
 }
+
+class StoreDelivery extends Delivery {
+	constructor(
+		public date: Date,
+		public storeID: number
+	) {
+		super(new Date());
+	}
+}
+
+type DeliveryOptions = HomeDelivery | StoreDelivery;
 
 class Cart {
+	private products: Array<Product> = [];
+	private delivery: DeliveryOptions;
 
-	products: IProduct[] = [];
-	delivery: IDeliveryHome | IDeliveryStore;
-
-	addProduct(product: IProduct): IProduct[] {
+	addProduct(product: Product): Product[] {
 		this.products.push(product);
 		console.log(this.products);
 		return this.products;
 	}
 
-	removeProduct(id: number): IProduct[] {
+	removeProduct(id: number): Product[] {
+		this.products = this.products.filter((product: Product) => product.id !== id);
 		console.log(this.products);
-		this.products = this.products.filter(product => product.id !== id);
 		return this.products;
 	}
 
@@ -38,34 +54,31 @@ class Cart {
 		return sum;
 	}
 
-	setDelivery(delivery: IDeliveryHome | IDeliveryStore): void {
+	setDelivery(delivery: DeliveryOptions): void {
 		this.delivery = delivery;
 		console.log(this.delivery);
 	}
+
+	checkOut() {
+		this.products.length > 0 && this.delivery !== undefined;
+		if (this.products.length === 0) {
+			throw new Error('Нет продуктов');
+		}
+		if (!this.delivery) {
+			throw new Error('Не выбрали доставку');
+		}
+		return { success: true }
+	}
 }
 
-
-const product1: IProduct = {
-	id: 1,
-	name: 'product1',
-	cost: 100
-}
-
-const product2: IProduct = {
-	id: 2,
-	name: 'product2',
-	cost: 300
-}
-
-const product3: IProduct = {
-	id: 3,
-	name: 'product3',
-	cost: 500
-}
-
-const cart = new Cart;
+const cart = new Cart();
+const product1 = new Product(1, 'Печенье', 100);
+const product2 = new Product(2, 'Торт', 300);
+const product3 = new Product(3, 'Молоко', 500);
 cart.addProduct(product1);
 cart.addProduct(product2);
 cart.addProduct(product3);
 cart.removeProduct(2);
+cart.setDelivery(new HomeDelivery(new Date(), 'Москва'));
 cart.finalCost();
+cart.checkOut();

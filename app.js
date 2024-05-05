@@ -1,4 +1,30 @@
 "use strict";
+class Product {
+    constructor(id, name, cost) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+    }
+}
+class Delivery {
+    constructor(date) {
+        this.date = date;
+    }
+}
+class HomeDelivery extends Delivery {
+    constructor(date, address) {
+        super(date);
+        this.date = date;
+        this.address = address;
+    }
+}
+class StoreDelivery extends Delivery {
+    constructor(date, storeID) {
+        super(new Date());
+        this.date = date;
+        this.storeID = storeID;
+    }
+}
 class Cart {
     constructor() {
         this.products = [];
@@ -9,8 +35,8 @@ class Cart {
         return this.products;
     }
     removeProduct(id) {
+        this.products = this.products.filter((product) => product.id !== id);
         console.log(this.products);
-        this.products = this.products.filter(product => product.id !== id);
         return this.products;
     }
     finalCost() {
@@ -22,25 +48,25 @@ class Cart {
         this.delivery = delivery;
         console.log(this.delivery);
     }
+    checkOut() {
+        this.products.length > 0 && this.delivery !== undefined;
+        if (this.products.length === 0) {
+            throw new Error('Нет продуктов');
+        }
+        if (!this.delivery) {
+            throw new Error('Не выбрали доставку');
+        }
+        return { success: true };
+    }
 }
-const product1 = {
-    id: 1,
-    name: 'product1',
-    cost: 100
-};
-const product2 = {
-    id: 2,
-    name: 'product2',
-    cost: 300
-};
-const product3 = {
-    id: 3,
-    name: 'product3',
-    cost: 500
-};
-const cart = new Cart;
+const cart = new Cart();
+const product1 = new Product(1, 'Печенье', 100);
+const product2 = new Product(2, 'Торт', 300);
+const product3 = new Product(3, 'Молоко', 500);
 cart.addProduct(product1);
 cart.addProduct(product2);
 cart.addProduct(product3);
 cart.removeProduct(2);
+cart.setDelivery(new HomeDelivery(new Date(), 'Москва'));
 cart.finalCost();
+cart.checkOut();
