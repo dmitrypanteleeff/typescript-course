@@ -1,48 +1,71 @@
-/*
-public - свойство досутпно в наследниках и извне
-private - свойство недоступно в наследниках. Оно доступно только внутри класса, который был объявлен
-protected - свойство доступно в наследниках (внутри классов), но не доступно из вне (когда создаём экземляр, например)
-*/
 
+interface IProduct {
+	id: number;
+	name: string;
+	cost: number;
+}
 
-class Vehicle {
-	public make: String;
-	private damages: string[];
-	private _model: string;
-	protected run: number;
-	#price: number; // делает свойство приватным, но в JS
+interface IDeliveryHome {
+	address: string;
+	date: Date;
+}
 
-	set model(m: string) {
-		this._model = m;
-		this.#price = 100;
+interface IDeliveryStore {
+	storeID: number;
+	date: Date;
+}
+
+class Cart {
+
+	products: IProduct[] = [];
+	delivery: IDeliveryHome | IDeliveryStore;
+
+	addProduct(product: IProduct): IProduct[] {
+		this.products.push(product);
+		console.log(this.products);
+		return this.products;
 	}
 
-	get model() {
-		return this._model;
+	removeProduct(id: number): IProduct[] {
+		console.log(this.products);
+		this.products = this.products.filter(product => product.id !== id);
+		return this.products;
 	}
 
-	isPriceEqual(v: Vehicle) {
-		return this.#price === v.#price;
+	finalCost(): number {
+		const sum = this.products.reduce((acc, product) => acc + product.cost, 0);
+		console.log(sum);
+		return sum;
 	}
 
-	addDamage(damage: string): void {
-		this.damages.push(damage);
-		console.log(this.#price);
+	setDelivery(delivery: IDeliveryHome | IDeliveryStore): void {
+		this.delivery = delivery;
+		console.log(this.delivery);
 	}
 }
 
-class EuroTrack extends Vehicle {
 
-	setRun(km: number) {
-		this.run = km / 0.62;
-		//this.
-	}
-
-	// constructor() {
-	// 	super();
-	// }
+const product1: IProduct = {
+	id: 1,
+	name: 'product1',
+	cost: 100
 }
 
-new Vehicle().make = 'd';
-new Vehicle().addDamage('damage1');
-new Vehicle().model;
+const product2: IProduct = {
+	id: 2,
+	name: 'product2',
+	cost: 300
+}
+
+const product3: IProduct = {
+	id: 3,
+	name: 'product3',
+	cost: 500
+}
+
+const cart = new Cart;
+cart.addProduct(product1);
+cart.addProduct(product2);
+cart.addProduct(product3);
+cart.removeProduct(2);
+cart.finalCost();
