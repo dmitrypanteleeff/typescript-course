@@ -1,31 +1,42 @@
-/*
-	Статические свойства не требуют создание инстанса класса
-	К свойствам можно обращаться без создания инстанса
+class Payment {
+	private date: Date = new Date();
 
-	Любой статичный метод может быть асинхронным
-	Инициализатор static не может быть асинхронным. Но может задавать изначальные значения
-*/
-
-class UserService {
-	static db: any;
-
-	static async getUser(id: number) {
-		return UserService.db.findById(id);
+	getDate(this: Payment, a: number) {
+		return this.date;
 	}
 
-	constructor(id: number) {
-
-	}
-
-	create() {
-		UserService.db = 'asd';
-	}
-
-	static {
-
+	getDateArrow = () => {
+		return this.date;
 	}
 }
 
-UserService.getUser(1);
-const inst = new UserService(1);
-inst.create();
+const p = new Payment();
+
+
+const user = {
+	date: 3,
+	id: 1,
+	paymentDate: p.getDate.bind(p),
+	paymentDateArrow: p.getDateArrow
+}
+
+
+// console.log(p.getDate(1));
+// console.log(user.paymentDate(1));
+// console.log(user.paymentDateArrow());
+
+class PaymentPersistent extends Payment {
+	// Мы уже отнаследовались. В Payment есть getDateArrow()
+	save() {
+		return this.getDateArrow();
+	}
+	save2() {
+		return super.getDate(1);
+	}
+	// Ошибка мы не можем получить стрелочную функцию. Но можем получить обычную
+	// save1() {
+	// 	return super.getDateArrow();
+	// }
+}
+
+console.log(new PaymentPersistent().save());

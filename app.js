@@ -1,34 +1,32 @@
 "use strict";
-/*
-    Статические свойства не требуют создание инстанса класса
-    К свойствам можно обращаться без создания инстанса
-
-    Любой статичный метод может быть асинхронным
-    Инициализатор static не может быть асинхронным. Но может задавать изначальные значения
-*/
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-class UserService {
-    static getUser(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return UserService.db.findById(id);
-        });
+class Payment {
+    constructor() {
+        this.date = new Date();
+        this.getDateArrow = () => {
+            return this.date;
+        };
     }
-    constructor(id) {
-    }
-    create() {
-        UserService.db = 'asd';
+    getDate(a) {
+        return this.date;
     }
 }
-(() => {
-})();
-UserService.getUser(1);
-const inst = new UserService(1);
-inst.create();
+const p = new Payment();
+const user = {
+    date: 3,
+    id: 1,
+    paymentDate: p.getDate.bind(p),
+    paymentDateArrow: p.getDateArrow
+};
+// console.log(p.getDate(1));
+// console.log(user.paymentDate(1));
+// console.log(user.paymentDateArrow());
+class PaymentPersistent extends Payment {
+    // Мы уже отнаследовались. В Payment есть getDateArrow()
+    save() {
+        return this.getDateArrow();
+    }
+    save2() {
+        return super.getDate(1);
+    }
+}
+console.log(new PaymentPersistent().save());
