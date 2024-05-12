@@ -1,27 +1,39 @@
-class UserBuilder {
-	name: string;
+/*
+Отличие implements от абстрактных классов
 
-	setName(name: string): this {
-		this.name = name;
-		return this;
+implements переносит методы, которые должны быть использованы 
+в наследуемых классах 
+
+абстрактные классы переносят не только методы, 
+но и логику, которая описывается в абстрактных классах
+
+классы которые наследуются от абстрактных 
+классов должны обязательно содержать абстрактные методы 
+перечисленные в абстрактных классах
+*/
+
+
+abstract class Controller {
+	abstract handle(req: any): void;
+
+	handleWithLogs(req: any) {
+		console.log('Start');
+		this.handle(req);
+		console.log('End');
 	}
+}
 
-	isAdmin(): this is AdminBuilder {
-		return this instanceof AdminBuilder;
+//new Controller() - error
+
+class UserController extends Controller {
+	// handle(req: any): void {
+	// 	console.log(req);
+	// }
+	handle(req: any): void {
+		console.log(req)
 	}
 }
 
-class AdminBuilder extends UserBuilder {
-	roles: string[];
-}
 
-const res = new UserBuilder().setName('Вася');
-const res2 = new AdminBuilder().setName('Вася');
-
-let user: UserBuilder | AdminBuilder = new UserBuilder();
-
-if (user.isAdmin()) {
-	console.log(user);
-} else {
-	console.log(user);
-}
+const c = new UserController();
+c.handleWithLogs('Request');

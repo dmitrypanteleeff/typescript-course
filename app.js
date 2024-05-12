@@ -1,21 +1,32 @@
 "use strict";
-class UserBuilder {
-    setName(name) {
-        this.name = name;
-        return this;
+/*
+Отличие implements от абстрактных классов
+
+implements переносит методы, которые должны быть использованы
+в наследуемых классах
+
+абстрактные классы переносят не только методы,
+но и логику, которая описывается в абстрактных классах
+
+классы которые наследуются от абстрактных
+классов должны обязательно содержать абстрактные методы
+перечисленные в абстрактных классах
+*/
+class Controller {
+    handleWithLogs(req) {
+        console.log('Start');
+        this.handle(req);
+        console.log('End');
     }
-    isAdmin() {
-        return this instanceof AdminBuilder;
+}
+//new Controller() - error
+class UserController extends Controller {
+    // handle(req: any): void {
+    // 	console.log(req);
+    // }
+    handle(req) {
+        console.log(req);
     }
 }
-class AdminBuilder extends UserBuilder {
-}
-const res = new UserBuilder().setName('Вася');
-const res2 = new AdminBuilder().setName('Вася');
-let user = new UserBuilder();
-if (user.isAdmin()) {
-    console.log(user);
-}
-else {
-    console.log(user);
-}
+const c = new UserController();
+c.handleWithLogs('Request');
