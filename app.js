@@ -1,32 +1,21 @@
 "use strict";
-class Payment {
-    constructor() {
-        this.date = new Date();
-        this.getDateArrow = () => {
-            return this.date;
-        };
+class UserBuilder {
+    setName(name) {
+        this.name = name;
+        return this;
     }
-    getDate(a) {
-        return this.date;
+    isAdmin() {
+        return this instanceof AdminBuilder;
     }
 }
-const p = new Payment();
-const user = {
-    date: 3,
-    id: 1,
-    paymentDate: p.getDate.bind(p),
-    paymentDateArrow: p.getDateArrow
-};
-// console.log(p.getDate(1));
-// console.log(user.paymentDate(1));
-// console.log(user.paymentDateArrow());
-class PaymentPersistent extends Payment {
-    // Мы уже отнаследовались. В Payment есть getDateArrow()
-    save() {
-        return this.getDateArrow();
-    }
-    save2() {
-        return super.getDate(1);
-    }
+class AdminBuilder extends UserBuilder {
 }
-console.log(new PaymentPersistent().save());
+const res = new UserBuilder().setName('Вася');
+const res2 = new AdminBuilder().setName('Вася');
+let user = new UserBuilder();
+if (user.isAdmin()) {
+    console.log(user);
+}
+else {
+    console.log(user);
+}

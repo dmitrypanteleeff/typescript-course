@@ -1,42 +1,27 @@
-class Payment {
-	private date: Date = new Date();
+class UserBuilder {
+	name: string;
 
-	getDate(this: Payment, a: number) {
-		return this.date;
+	setName(name: string): this {
+		this.name = name;
+		return this;
 	}
 
-	getDateArrow = () => {
-		return this.date;
+	isAdmin(): this is AdminBuilder {
+		return this instanceof AdminBuilder;
 	}
 }
 
-const p = new Payment();
-
-
-const user = {
-	date: 3,
-	id: 1,
-	paymentDate: p.getDate.bind(p),
-	paymentDateArrow: p.getDateArrow
+class AdminBuilder extends UserBuilder {
+	roles: string[];
 }
 
+const res = new UserBuilder().setName('Вася');
+const res2 = new AdminBuilder().setName('Вася');
 
-// console.log(p.getDate(1));
-// console.log(user.paymentDate(1));
-// console.log(user.paymentDateArrow());
+let user: UserBuilder | AdminBuilder = new UserBuilder();
 
-class PaymentPersistent extends Payment {
-	// Мы уже отнаследовались. В Payment есть getDateArrow()
-	save() {
-		return this.getDateArrow();
-	}
-	save2() {
-		return super.getDate(1);
-	}
-	// Ошибка мы не можем получить стрелочную функцию. Но можем получить обычную
-	// save1() {
-	// 	return super.getDateArrow();
-	// }
+if (user.isAdmin()) {
+	console.log(user);
+} else {
+	console.log(user);
 }
-
-console.log(new PaymentPersistent().save());
