@@ -1,39 +1,30 @@
 /*
-Отличие implements от абстрактных классов
-
-implements переносит методы, которые должны быть использованы 
-в наследуемых классах 
-
-абстрактные классы переносят не только методы, 
-но и логику, которая описывается в абстрактных классах
-
-классы которые наследуются от абстрактных 
-классов должны обязательно содержать абстрактные методы 
-перечисленные в абстрактных классах
+	Необходимо реализовать абстрактный класс Logger с 2-мя методами
+	абстрактным - log(message): void
+	printDate - выводящий в log дату
+	К нему необходимо сделать реальный класс, который бы имел метод: logWithDate,
+	выводящий сначала дату, а потом заданное сообщение
 */
 
 
-abstract class Controller {
-	abstract handle(req: any): void;
-
-	handleWithLogs(req: any) {
-		console.log('Start');
-		this.handle(req);
-		console.log('End');
+abstract class Logger {
+	abstract log(message: string | Date): void;
+	
+	printDate(): void {
+		this.log(new Date());
 	}
 }
 
-//new Controller() - error
+class LoggerDate extends Logger {
+	log(message: string | Date): void {
+		console.log(message)
+	}
 
-class UserController extends Controller {
-	// handle(req: any): void {
-	// 	console.log(req);
-	// }
-	handle(req: any): void {
-		console.log(req)
+	logWithDate(message: string) {
+		this.printDate();
+		this.log(message);
 	}
 }
 
-
-const c = new UserController();
-c.handleWithLogs('Request');
+const c = new LoggerDate();
+c.logWithDate('Hello');
