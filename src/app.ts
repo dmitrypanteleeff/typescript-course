@@ -5,7 +5,7 @@
 	К нему необходимо сделать реальный класс, который бы имел метод: logWithDate,
 	выводящий сначала дату, а потом заданное сообщение
 */
-
+//import { } from '@lib';
 
 abstract class Logger {
 	abstract log(message: string | Date): void;

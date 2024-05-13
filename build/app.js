@@ -6,6 +6,7 @@
     К нему необходимо сделать реальный класс, который бы имел метод: logWithDate,
     выводящий сначала дату, а потом заданное сообщение
 */
+//import { } from '@lib';
 class Logger {
     printDate() {
         this.log(new Date());
