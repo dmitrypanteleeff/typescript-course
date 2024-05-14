@@ -1,30 +1,13 @@
 "use strict";
-class User {
-    constructor(name) {
-        this.name = name;
-    }
-    login() {
-        console.log(this.name);
-    }
+function logMiddleware(data) {
+    console.log(data);
+    return data;
 }
-function createUser(user) {
-    // логика
-    // @ts-ignore
-    const defaultUser = new User('default');
-    defaultUser.role = undefined;
-    switch (user.role) {
-        case 'admin':
-            //const a = 7; //noFallthroughCasesInSwitch
-            return;
-        case 'user':
-            return true;
-        //const c = 1; //allowUnreachableCode
-    }
-    return;
+const res = logMiddleware(10);
+function splitHalf(data) {
+    const length = data.length;
+    return data.splice(0, length / 2);
 }
-const c = {};
-const d = c['drive']; //noUncheckedIndexedAccess
-class VipUser extends User {
-    login() {
-    }
-}
+const arr = ['test', 'test2', 'test3', 'test4', 'test5', 'test6'];
+const res2 = splitHalf(arr);
+console.log(res2);

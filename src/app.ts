@@ -1,12 +1,15 @@
-const num: Array<number> = [1, 2, 3];
-
-async function test() {
-	const a = await new Promise<number>((res, rej) => {
-		res(1);
-	})
+function logMiddleware<T>(data: T): T {
+	console.log(data);
+	return data;
 }
 
-const check: Record<string, boolean> = {
-	drive: true,
-	kpp: false
+const res = logMiddleware<number>(10);
+
+function splitHalf<T>(data: Array<T>): Array<T> {
+	const length = data.length;
+
+	return data.splice(0, length / 2);
 }
+const arr = ['test', 'test2', 'test3', 'test4', 'test5', 'test6'];
+const res2 = splitHalf<string>(arr);
+console.log(res2);
