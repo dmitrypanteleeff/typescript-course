@@ -1,9 +1,15 @@
-declare abstract class Logger {
-    abstract log(message: string | Date): void;
-    printDate(): void;
+declare class User {
+    name: string;
+    role?: 'admin' | 'user';
+    constructor(name: string);
+    login(): void;
 }
-declare class LoggerDate extends Logger {
-    log(message: string | Date): void;
-    logWithDate(message: string): void;
+declare function createUser(user: User): true | undefined;
+interface IChecks {
+    [check: string]: boolean;
 }
-declare const c: LoggerDate;
+declare const c: IChecks;
+declare const d: boolean | undefined;
+declare class VipUser extends User {
+    login(): void;
+}

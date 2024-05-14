@@ -1,25 +1,30 @@
 "use strict";
-/*
-    Необходимо реализовать абстрактный класс Logger с 2-мя методами
-    абстрактным - log(message): void
-    printDate - выводящий в log дату
-    К нему необходимо сделать реальный класс, который бы имел метод: logWithDate,
-    выводящий сначала дату, а потом заданное сообщение
-*/
-//import { } from '@lib';
-class Logger {
-    printDate() {
-        this.log(new Date());
+class User {
+    constructor(name) {
+        this.name = name;
+    }
+    login() {
+        console.log(this.name);
     }
 }
-class LoggerDate extends Logger {
-    log(message) {
-        console.log(message);
+function createUser(user) {
+    // логика
+    // @ts-ignore
+    const defaultUser = new User('default');
+    defaultUser.role = undefined;
+    switch (user.role) {
+        case 'admin':
+            //const a = 7; //noFallthroughCasesInSwitch
+            return;
+        case 'user':
+            return true;
+        //const c = 1; //allowUnreachableCode
     }
-    logWithDate(message) {
-        this.printDate();
-        this.log(message);
+    return;
+}
+const c = {};
+const d = c['drive']; //noUncheckedIndexedAccess
+class VipUser extends User {
+    login() {
     }
 }
-const c = new LoggerDate();
-c.logWithDate('Hello');
