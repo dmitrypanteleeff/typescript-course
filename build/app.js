@@ -1,27 +1,18 @@
 "use strict";
-function logMiddleware(data) {
-    console.log(data);
-    return data;
+class Vehicle {
 }
-const res = logMiddleware(10);
-function splitHalf(data) {
-    const length = data.length;
-    return data.splice(0, length / 2);
+function kmToMiles(vehicle) {
+    vehicle.run = vehicle.run / 0.62;
+    return vehicle;
 }
-const arr = ['test', 'test2', 'test3', 'test4', 'test5', 'test6'];
-const res2 = splitHalf(arr);
-console.log(res2);
-const split = splitHalf;
-const split2 = splitHalf;
-const logLine = {
-    timeStamp: new Date(),
-    data: {
-        a: 1
-    }
-};
-const logLineWithType = {
-    timeStamp: new Date(),
-    data: {
-        a: 1
-    }
-};
+class LCV extends Vehicle {
+}
+const vehicle = kmToMiles(new Vehicle());
+const lcv = kmToMiles(new LCV());
+kmToMiles({ run: 1 });
+function logId(id, additionalData) {
+    console.log(id);
+    console.log(additionalData);
+    return { id, data: additionalData };
+}
+logId(1, 'text');
