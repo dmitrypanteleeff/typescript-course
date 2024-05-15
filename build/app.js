@@ -1,18 +1,18 @@
 "use strict";
-class Vehicle {
+const data1 = [
+    { id: 4, name: 'Вася' },
+    { id: 2, name: 'Артур' },
+    { id: 3, name: 'Саша' },
+    { id: 5, secondName: 'Сергей' },
+];
+class DataWithId {
 }
-function kmToMiles(vehicle) {
-    vehicle.run = vehicle.run / 0.62;
-    return vehicle;
+function sortData(data, order) {
+    return order === 'asc'
+        ? data.sort((a, b) => a.id - b.id)
+        : data.sort((a, b) => b.id - a.id);
 }
-class LCV extends Vehicle {
-}
-const vehicle = kmToMiles(new Vehicle());
-const lcv = kmToMiles(new LCV());
-kmToMiles({ run: 1 });
-function logId(id, additionalData) {
-    console.log(id);
-    console.log(additionalData);
-    return { id, data: additionalData };
-}
-logId(1, 'text');
+const data2 = sortData(data1, 'asc');
+console.log(data2);
+const data3 = sortData(data1, 'desc');
+console.log(data3);

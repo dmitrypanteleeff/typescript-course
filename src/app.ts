@@ -1,24 +1,24 @@
-class Vehicle {
-	run: number
+
+const data1 = [
+	{ id: 4, name: 'Вася' },
+	{ id: 2, name: 'Артур' },
+	{ id: 3, name: 'Саша' },
+	{ id: 5, secondName: 'Сергей' },
+]
+
+class DataWithId {
+	id: number
 }
 
-function kmToMiles<T extends Vehicle>(vehicle: T): T {
-	vehicle.run = vehicle.run / 0.62;
-	return vehicle;
+function sortData<T extends DataWithId, K extends 'asc' | 'desc'>(data: Array<T>, order: K): Array<T> {
+	return order === 'asc' 
+		? data.sort((a, b) => a.id - b.id)
+		: data.sort((a, b) => b.id - a.id);
 }
 
-class LCV extends Vehicle {
-	capacity: number
-}
+const data2 = sortData(data1, 'asc');
+console.log(data2)
 
-const vehicle = kmToMiles(new Vehicle());
-const lcv = kmToMiles(new LCV());
-kmToMiles({run: 1})
+const data3 = sortData(data1, 'desc');
+console.log(data3)
 
-function logId<T extends string | number, Y>(id: T, additionalData: Y): { id: T, data: Y} {
-	console.log(id);
-	console.log(additionalData);
-	return {id, data: additionalData };
-}
-
-logId(1, 'text')
