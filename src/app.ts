@@ -1,24 +1,22 @@
+class Resp<D, E> {
+	data?: D;
+	error?: E;
 
-const data1 = [
-	{ id: 4, name: 'Вася' },
-	{ id: 2, name: 'Артур' },
-	{ id: 3, name: 'Саша' },
-	{ id: 5, secondName: 'Сергей' },
-]
-
-class DataWithId {
-	id: number
+	constructor(data: D, error: E) {
+		this.data = data;
+		this.error = error;
+	}
 }
 
-function sortData<T extends DataWithId, K extends 'asc' | 'desc'>(data: Array<T>, order: K): Array<T> {
-	return order === 'asc' 
-		? data.sort((a, b) => a.id - b.id)
-		: data.sort((a, b) => b.id - a.id);
+//const res = new Resp<string, number>('qwerty', 5);
+//const res = new Resp('qwerty');
+
+class HTTPResp<F> extends Resp<string,number> {
+	code: F;
+
+	setCode(code: F) {
+		this.code = code;
+	}
 }
 
-const data2 = sortData(data1, 'asc');
-console.log(data2)
-
-const data3 = sortData(data1, 'desc');
-console.log(data3)
-
+const resp2 = new HTTPResp<number>('qwe',0);
