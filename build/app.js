@@ -1,15 +1,31 @@
 "use strict";
-class Resp {
-    constructor(data, error) {
-        this.data = data;
-        this.error = error;
+class List {
+    constructor(items) {
+        this.items = items;
     }
 }
-//const res = new Resp<string, number>('qwerty', 5);
-//const res = new Resp('qwerty');
-class HTTPResp extends Resp {
-    setCode(code) {
-        this.code = code;
+class Accordion {
+}
+class ExtendedListClass extends List {
+    first() {
+        return this.items[0];
     }
 }
-const resp2 = new HTTPResp('qwe', 0);
+function ExtendedList(Base) {
+    return class ExtendedList extends Base {
+        first() {
+            return this.items[0];
+        }
+    };
+}
+class AccordionList {
+    constructor(items) {
+        this.items = items;
+    }
+}
+const list = ExtendedList(AccordionList);
+const res = new list(['first', 'second']);
+// function ExtendedAccordion<T extends AccordionType>(Base: T) {
+// 	return class ExtendedAccordion extends Base {
+// 	}
+// }
