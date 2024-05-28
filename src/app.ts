@@ -1,61 +1,33 @@
-/**
-Необходимо написать функцию группировки, которая принимает массив объектов
-и его ключ, производит группировку по указанному ключу и возращает
-сгруппированный объект.
-Пример:
-``` js
-[
-	{ group: 1, name: 'a' },
-	{ group: 1, name: 'b' },
-	{ group: 2, name: 'c' },
-];
-```
-
-При группироке по 'group' ---->
-
-``` js
-{
-	'1': [ { group: 1, name: 'a' }, { group: 1, name: 'b' } ],
-	'2': [ { group: 2, name: 'c' } ]
-}
-```
+/*
+	typeof позволяет вытащить из переменной тип
+	можно сужать тип
 */
 
-interface IData {
-	group: number;
-	name: string;
+
+let strOrNum: string | number = 5;
+
+strOrNum = Math.random() > 0.5
+	? 5
+	: 'five';
+
+if (typeof strOrNum === 'string') {
+	console.log(strOrNum);
+} else {
+	console.log(strOrNum);
 }
 
-const data: IData[] = [
-	{ group: 1, name: 'a' },
-	{ group: 1, name: 'b' },
-	{ group: 2, name: 'a' }
-] 
+let strOrNum2: typeof strOrNum;
 
-interface IGroup<T extends IData> {
-	[key: string ]: T[]
+const user = {
+	name: 'Вася',
+	age: 22
 }
 
-function groupArray<T extends Array<IData>, K extends keyof IData>(arr: T, key: K): IGroup<IData> {
-	let map = new Map();
-	arr.map(item => {
-		for (let k in item) {
-			if (k === key) {
-				map.set(item[key], arr.filter(it => it[key] === item[key]));
-			}
-		}
-	})
+type keyOfUser = keyof typeof user; 
 
-	const obj: IGroup<IData> = {};
-	map.forEach((value, key) => {
-		obj[key] = value;
-	});
-
-	return obj;
+enum Direction {
+	Up,
+	Down
 }
 
-const obj = groupArray(data, 'name');
-console.log(obj)
-
-const obj2 = groupArray(data, 'group')
-console.log(obj2)
+type d = keyof typeof Direction;
