@@ -1,34 +1,61 @@
-interface IRole {
-	name: string
+/*
+	Conditional Types
+	Использовать полезно, когда одним интерфейсом нужно 
+	описать сразу несколько объектов, которые в зависимости от значения, будут отличаться
+
+	В функциях, чтобы убрать лишние переопределения
+*/
+
+const a1: number = Math.random() > 0.5 ? 1 : 0;
+
+interface HTTPResponse<T extends 'success' | 'failed'> {
+	code: number,
+	data: T extends 'success' ? string : Error,
+	//dat2: T extends 'success' ? string : number,
+	//additionalData: string | number
 }
 
-interface IUser {
+const suc: HTTPResponse<'success'> = {
+	code: 122,
+	data: 'asdasd'
+}
+
+const err: HTTPResponse<'failed'> = {
+	code: 122,
+	data: new Error()
+}
+
+
+class User {
+	id: number;
 	name: string;
-	roles: IRole[];
-	permission: IPermission;
 }
 
-interface IPermission {
-	endDate: Date;
+class UserPersistned extends User{
+	dbId: string;
 }
 
-const user: IUser = {
-	name: 'Вася',
-	roles: [],
-	permission: {
-		endDate: new Date()
+function getUser(id: number): User
+function getUser(dbId: string): UserPersistned  
+function getUser(dbIdOrId: string | number): User | UserPersistned { 
+	if (typeof dbIdOrId === 'number') {
+		return new User();
+	} else {
+		return new UserPersistned();
 	}
 }
 
-const nameUser = user['name'];
-const roleNames = 'roles';
+type UserorUserPersistned<T extends string | number> = T extends number 
+	? User
+	: UserPersistned;
 
-type rolesType = IUser['roles']; // получаем массив IRole[]
-type rolesType2 = IUser[typeof roleNames]; 
+function getUser2<T extends string | number>(dbIdOrId: T): UserorUserPersistned<T> { 
+	if (typeof dbIdOrId === 'number') {
+		return new User() as UserorUserPersistned<T>;
+	} else {
+		return new UserPersistned() as UserorUserPersistned<T>;
+	}
+}	
 
-type roleType = IUser['roles'][number]; // получаем элемент массива IRole
-
-const roles = ['admin', 'user', 'super-user'] as const; // roles: readonly ["admin", "user", "super-user"]
-type roleTypes = typeof roles[number]; // "admin" | "user" | "super-user"
-type endDate = IUser['permission']['endDate'] // Date
-//const a: endDate = ''
+const res = getUser2(1)
+const res2 = getUser2('qweqw')
