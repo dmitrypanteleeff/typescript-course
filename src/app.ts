@@ -1,33 +1,34 @@
-/*
-	typeof позволяет вытащить из переменной тип
-	можно сужать тип
-*/
-
-
-let strOrNum: string | number = 5;
-
-strOrNum = Math.random() > 0.5
-	? 5
-	: 'five';
-
-if (typeof strOrNum === 'string') {
-	console.log(strOrNum);
-} else {
-	console.log(strOrNum);
+interface IRole {
+	name: string
 }
 
-let strOrNum2: typeof strOrNum;
+interface IUser {
+	name: string;
+	roles: IRole[];
+	permission: IPermission;
+}
 
-const user = {
+interface IPermission {
+	endDate: Date;
+}
+
+const user: IUser = {
 	name: 'Вася',
-	age: 22
+	roles: [],
+	permission: {
+		endDate: new Date()
+	}
 }
 
-type keyOfUser = keyof typeof user; 
+const nameUser = user['name'];
+const roleNames = 'roles';
 
-enum Direction {
-	Up,
-	Down
-}
+type rolesType = IUser['roles']; // получаем массив IRole[]
+type rolesType2 = IUser[typeof roleNames]; 
 
-type d = keyof typeof Direction;
+type roleType = IUser['roles'][number]; // получаем элемент массива IRole
+
+const roles = ['admin', 'user', 'super-user'] as const; // roles: readonly ["admin", "user", "super-user"]
+type roleTypes = typeof roles[number]; // "admin" | "user" | "super-user"
+type endDate = IUser['permission']['endDate'] // Date
+//const a: endDate = ''
