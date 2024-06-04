@@ -1,61 +1,20 @@
 /*
-	Conditional Types
-	Использовать полезно, когда одним интерфейсом нужно 
-	описать сразу несколько объектов, которые в зависимости от значения, будут отличаться
-
-	В функциях, чтобы убрать лишние переопределения
+	Infer
+	вытаскивает нужный тип и мы можем его переиспользовать
 */
 
-const a1: number = Math.random() > 0.5 ? 1 : 0;
-
-interface HTTPResponse<T extends 'success' | 'failed'> {
-	code: number,
-	data: T extends 'success' ? string : Error,
-	//dat2: T extends 'success' ? string : number,
-	//additionalData: string | number
+function runTransaction(transaction: {
+	fromTo: [string, string]
+}) {
+	console.log(transaction)
 }
 
-const suc: HTTPResponse<'success'> = {
-	code: 122,
-	data: 'asdasd'
+console.log(typeof runTransaction)
+
+const transaction: GetFirstArc<typeof runTransaction> = {
+	fromTo: ['1', '2']
 }
 
-const err: HTTPResponse<'failed'> = {
-	code: 122,
-	data: new Error()
-}
+runTransaction(transaction);
 
-
-class User {
-	id: number;
-	name: string;
-}
-
-class UserPersistned extends User{
-	dbId: string;
-}
-
-function getUser(id: number): User
-function getUser(dbId: string): UserPersistned  
-function getUser(dbIdOrId: string | number): User | UserPersistned { 
-	if (typeof dbIdOrId === 'number') {
-		return new User();
-	} else {
-		return new UserPersistned();
-	}
-}
-
-type UserorUserPersistned<T extends string | number> = T extends number 
-	? User
-	: UserPersistned;
-
-function getUser2<T extends string | number>(dbIdOrId: T): UserorUserPersistned<T> { 
-	if (typeof dbIdOrId === 'number') {
-		return new User() as UserorUserPersistned<T>;
-	} else {
-		return new UserPersistned() as UserorUserPersistned<T>;
-	}
-}	
-
-const res = getUser2(1)
-const res2 = getUser2('qweqw')
+type GetFirstArc<T> = T extends (first: infer First, ...args: any[]) => any ? First : never;

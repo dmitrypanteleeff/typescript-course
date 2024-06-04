@@ -1,39 +1,13 @@
 "use strict";
 /*
-    Conditional Types
-    Использовать полезно, когда одним интерфейсом нужно
-    описать сразу несколько объектов, которые в зависимости от значения, будут отличаться
-
-    В функциях, чтобы убрать лишние переопределения
+    Infer
+    вытаскивает нужный тип и мы можем его переиспользовать
 */
-const a1 = Math.random() > 0.5 ? 1 : 0;
-const suc = {
-    code: 122,
-    data: 'asdasd'
+function runTransaction(transaction) {
+    console.log(transaction);
+}
+console.log(typeof runTransaction);
+const transaction = {
+    fromTo: ['1', '2']
 };
-const err = {
-    code: 122,
-    data: new Error()
-};
-class User {
-}
-class UserPersistned extends User {
-}
-function getUser(dbIdOrId) {
-    if (typeof dbIdOrId === 'number') {
-        return new User();
-    }
-    else {
-        return new UserPersistned();
-    }
-}
-function getUser2(dbIdOrId) {
-    if (typeof dbIdOrId === 'number') {
-        return new User();
-    }
-    else {
-        return new UserPersistned();
-    }
-}
-const res = getUser2(1);
-const res2 = getUser2('qweqw');
+runTransaction(transaction);
